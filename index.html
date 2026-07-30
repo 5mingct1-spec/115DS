@@ -1,0 +1,848 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <title>五明菩薩學院大乘解行研經班</title>
+
+  <style>
+    /* =========================
+       全域設定
+    ========================= */
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
+      width: 100%;
+      min-height: 100%;
+      margin: 0;
+
+      font-family:
+        "Microsoft JhengHei",
+        "Noto Sans TC",
+        Arial,
+        sans-serif;
+    }
+
+    body {
+      overflow-x: hidden;
+      background-color: #23486b;
+    }
+
+    button {
+      font-family: inherit;
+    }
+
+    /* =========================
+       共用頁面
+    ========================= */
+
+    .page {
+      display: none;
+      width: 100%;
+      min-height: 100vh;
+    }
+
+    .page.active {
+      display: flex;
+    }
+
+    /* =========================
+       首頁背景
+    ========================= */
+
+    #homePage {
+      position: relative;
+
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+
+      padding: 40px 20px;
+      overflow: hidden;
+
+      background:
+        radial-gradient(
+          circle at 18% 20%,
+          rgba(226, 143, 166, 0.30),
+          transparent 32%
+        ),
+        radial-gradient(
+          circle at 82% 78%,
+          rgba(219, 176, 87, 0.19),
+          transparent 30%
+        ),
+        linear-gradient(
+          135deg,
+          #173b5d 0%,
+          #365f87 46%,
+          #b85f7d 100%
+        );
+    }
+
+    /* 首頁背景裝飾圓形 */
+    #homePage::before,
+    #homePage::after {
+      content: "";
+
+      position: absolute;
+
+      border-radius: 50%;
+      pointer-events: none;
+    }
+
+    #homePage::before {
+      width: 430px;
+      height: 430px;
+
+      top: -210px;
+      right: -120px;
+
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      background-color: rgba(255, 255, 255, 0.04);
+    }
+
+    #homePage::after {
+      width: 330px;
+      height: 330px;
+
+      bottom: -170px;
+      left: -90px;
+
+      border: 1px solid rgba(225, 190, 113, 0.20);
+      background-color: rgba(225, 190, 113, 0.06);
+    }
+
+    /* =========================
+       首頁中央卡片
+    ========================= */
+
+    .home-card {
+      position: relative;
+      z-index: 1;
+
+      width: min(960px, 94%);
+      padding: 72px 55px;
+
+      text-align: center;
+
+      border: 1px solid rgba(255, 255, 255, 0.22);
+      border-radius: 30px;
+
+      background:
+        linear-gradient(
+          145deg,
+          rgba(255, 255, 255, 0.15),
+          rgba(255, 255, 255, 0.07)
+        );
+
+      box-shadow:
+        0 26px 70px rgba(4, 27, 44, 0.38),
+        inset 0 1px 0 rgba(255, 255, 255, 0.20);
+
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+    }
+
+    /* 卡片頂部金色裝飾線 */
+    .home-card::before {
+      content: "";
+
+      position: absolute;
+      top: 0;
+      left: 50%;
+
+      width: 36%;
+      height: 4px;
+
+      border-radius: 0 0 10px 10px;
+
+      background:
+        linear-gradient(
+          90deg,
+          transparent,
+          #e7c575,
+          transparent
+        );
+
+      transform: translateX(-50%);
+    }
+
+    /* =========================
+       首頁標題
+    ========================= */
+
+    .school-name {
+      margin: 0 0 16px;
+
+      color: #f0d995;
+
+      font-size: clamp(22px, 3vw, 35px);
+      font-weight: 500;
+      letter-spacing: 0.20em;
+    }
+
+    .main-title {
+      margin: 0;
+
+      color: #ffffff;
+
+      font-size: clamp(34px, 5vw, 64px);
+      font-weight: 700;
+      line-height: 1.35;
+      letter-spacing: 0.08em;
+
+      text-shadow:
+        0 4px 18px rgba(0, 0, 0, 0.22);
+    }
+
+    .subtitle {
+      margin: 18px 0 0;
+
+      color: rgba(255, 255, 255, 0.78);
+
+      font-size: clamp(16px, 1.8vw, 21px);
+      letter-spacing: 0.12em;
+    }
+
+    .title-line {
+      position: relative;
+
+      width: 120px;
+      height: 3px;
+
+      margin: 30px auto 42px;
+
+      border-radius: 20px;
+
+      background:
+        linear-gradient(
+          90deg,
+          #e28fa6,
+          #e6c26e
+        );
+    }
+
+    .title-line::before,
+    .title-line::after {
+      content: "";
+
+      position: absolute;
+      top: 50%;
+
+      width: 7px;
+      height: 7px;
+
+      border-radius: 50%;
+      background-color: #f0d995;
+
+      transform: translateY(-50%);
+    }
+
+    .title-line::before {
+      left: -12px;
+    }
+
+    .title-line::after {
+      right: -12px;
+    }
+
+    /* =========================
+       按鈕區域
+    ========================= */
+
+    .button-group {
+      display: flex;
+      justify-content: center;
+      align-items: stretch;
+      flex-wrap: wrap;
+
+      width: 100%;
+      gap: 24px;
+    }
+
+    .menu-button {
+      position: relative;
+
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+
+      width: 310px;
+      min-height: 82px;
+
+      padding: 17px 30px;
+
+      border: 1px solid rgba(255, 255, 255, 0.55);
+      border-radius: 19px;
+
+      color: #ffffff;
+
+      font-size: clamp(20px, 2.1vw, 27px);
+      font-weight: 700;
+      letter-spacing: 0.06em;
+
+      cursor: pointer;
+      overflow: hidden;
+
+      box-shadow:
+        0 13px 28px rgba(9, 30, 48, 0.30);
+
+      transition:
+        transform 0.25s ease,
+        box-shadow 0.25s ease,
+        filter 0.25s ease;
+    }
+
+    /* 按鈕滑過光澤 */
+    .menu-button::before {
+      content: "";
+
+      position: absolute;
+      top: 0;
+      left: -90%;
+
+      width: 60%;
+      height: 100%;
+
+      background:
+        linear-gradient(
+          110deg,
+          transparent,
+          rgba(255, 255, 255, 0.20),
+          transparent
+        );
+
+      transform: skewX(-20deg);
+
+      transition: left 0.55s ease;
+    }
+
+    .menu-button:hover::before {
+      left: 130%;
+    }
+
+    .menu-button:hover {
+      transform: translateY(-6px);
+      filter: brightness(1.08);
+
+      box-shadow:
+        0 19px 36px rgba(7, 26, 42, 0.40);
+    }
+
+    .menu-button:active {
+      transform: translateY(-2px);
+    }
+
+    /* 第一個按鈕：藍色 */
+    .button-one {
+      background:
+        linear-gradient(
+          135deg,
+          #285e91 0%,
+          #347ca0 100%
+        );
+    }
+
+    /* 第二個按鈕：粉紅色 */
+    .button-two {
+      background:
+        linear-gradient(
+          135deg,
+          #b65375 0%,
+          #e28fa6 100%
+        );
+    }
+
+    /* 第三個按鈕：金棕色 */
+    .button-three {
+      background:
+        linear-gradient(
+          135deg,
+          #9a6b2f 0%,
+          #d2a653 100%
+        );
+    }
+
+    .button-icon {
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+      flex-shrink: 0;
+
+      width: 39px;
+      height: 39px;
+
+      margin-right: 13px;
+
+      border: 1px solid rgba(255, 255, 255, 0.42);
+      border-radius: 50%;
+
+      background-color: rgba(255, 255, 255, 0.14);
+
+      font-size: 19px;
+    }
+
+    .menu-button:focus-visible,
+    .back-button:focus-visible {
+      outline: 4px solid rgba(240, 217, 149, 0.85);
+      outline-offset: 4px;
+    }
+
+    /* =========================
+       簡報頁面
+    ========================= */
+
+    .presentation-page {
+      flex-direction: column;
+
+      min-height: 100vh;
+
+      background-color: #142c40;
+    }
+
+    .presentation-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+
+      gap: 20px;
+
+      width: 100%;
+      min-height: 78px;
+
+      padding: 12px 26px;
+
+      color: #ffffff;
+
+      background:
+        linear-gradient(
+          90deg,
+          #214d72 0%,
+          #b85f7d 100%
+        );
+
+      border-bottom: 3px solid #d8b661;
+
+      box-shadow:
+        0 4px 14px rgba(0, 0, 0, 0.25);
+    }
+
+    .presentation-title {
+      margin: 0;
+
+      font-size: clamp(18px, 2.3vw, 28px);
+      font-weight: 700;
+      letter-spacing: 0.06em;
+    }
+
+    .back-button {
+      flex-shrink: 0;
+
+      padding: 11px 23px;
+
+      border: 1px solid rgba(255, 255, 255, 0.75);
+      border-radius: 12px;
+
+      color: #ffffff;
+      background-color: rgba(255, 255, 255, 0.12);
+
+      font-size: 17px;
+      font-weight: 700;
+
+      cursor: pointer;
+
+      transition:
+        background-color 0.2s ease,
+        transform 0.2s ease;
+    }
+
+    .back-button:hover {
+      background-color: rgba(255, 255, 255, 0.25);
+      transform: translateY(-2px);
+    }
+
+    /* =========================
+       Google 簡報顯示區
+    ========================= */
+
+    .iframe-container {
+      position: relative;
+      flex: 1;
+
+      width: 100%;
+      min-height: calc(100vh - 78px);
+
+      overflow: hidden;
+
+      background-color: #000000;
+    }
+
+    .iframe-container iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
+
+      display: block;
+
+      width: 100%;
+      height: 100%;
+
+      border: 0;
+    }
+
+    /* =========================
+       PC 桌機版：三個按鈕同一排
+    ========================= */
+
+    @media (min-width: 901px) {
+      .button-group {
+        flex-wrap: nowrap;
+        gap: 18px;
+      }
+
+      .menu-button {
+        width: calc((100% - 36px) / 3);
+        min-width: 0;
+        min-height: 74px;
+        padding: 14px 16px;
+        font-size: clamp(17px, 1.45vw, 22px);
+        letter-spacing: 0.03em;
+      }
+
+      .button-icon {
+        width: 34px;
+        height: 34px;
+        margin-right: 9px;
+        font-size: 16px;
+      }
+    }
+
+    /* =========================
+       平板及手機版
+    ========================= */
+
+    @media (max-width: 700px) {
+      #homePage {
+        padding: 25px 14px;
+      }
+
+      .home-card {
+        width: 96%;
+
+        padding: 50px 22px;
+
+        border-radius: 23px;
+      }
+
+      .school-name {
+        letter-spacing: 0.10em;
+      }
+
+      .main-title {
+        letter-spacing: 0.04em;
+      }
+
+      .subtitle {
+        letter-spacing: 0.05em;
+      }
+
+      .button-group {
+        gap: 17px;
+      }
+
+      .menu-button {
+        width: 100%;
+        min-height: 70px;
+
+        padding: 14px 18px;
+      }
+
+      .button-icon {
+        width: 35px;
+        height: 35px;
+
+        margin-right: 10px;
+      }
+
+      .presentation-header {
+        min-height: 72px;
+
+        padding: 10px 14px;
+      }
+
+      .presentation-title {
+        font-size: 17px;
+      }
+
+      .back-button {
+        padding: 9px 14px;
+
+        font-size: 15px;
+      }
+
+      .iframe-container {
+        min-height: calc(100vh - 72px);
+      }
+    }
+
+    /* =========================
+       小尺寸手機
+    ========================= */
+
+    @media (max-width: 430px) {
+      .home-card {
+        padding: 42px 17px;
+      }
+
+      .school-name {
+        font-size: 20px;
+      }
+
+      .menu-button {
+        font-size: 19px;
+      }
+
+      .presentation-title {
+        max-width: 62%;
+        line-height: 1.4;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- =========================
+       首頁
+  ========================== -->
+
+  <main id="homePage" class="page active">
+    <section class="home-card">
+
+      <p class="school-name">
+        五明菩薩學院
+      </p>
+
+      <h1 class="main-title">
+        大乘解行研經班
+      </h1>
+
+      <p class="subtitle">
+        課程操作說明
+      </p>
+
+      <div class="title-line"></div>
+
+      <div class="button-group">
+
+        <!-- 第一個按鈕 -->
+        <button
+          type="button"
+          class="menu-button button-one"
+          onclick="showPresentation('presentationPage1')"
+        >
+          <span class="button-icon">▶</span>
+
+          <span>
+            補課系統操作手冊
+          </span>
+        </button>
+
+        <!-- 第二個按鈕 -->
+        <button
+          type="button"
+          class="menu-button button-two"
+          onclick="showPresentation('presentationPage2')"
+        >
+          <span class="button-icon">✉</span>
+
+          <span>
+            修改電子郵件
+          </span>
+        </button>
+
+        <!-- 第三個按鈕 -->
+        <button
+          type="button"
+          class="menu-button button-three"
+          onclick="showPresentation('presentationPage3')"
+        >
+          <span class="button-icon">▶</span>
+
+          <span>
+            學員請假操作手冊
+          </span>
+        </button>
+
+      </div>
+    </section>
+  </main>
+
+  <!-- =========================
+       第一份簡報
+  ========================== -->
+
+  <section
+    id="presentationPage1"
+    class="page presentation-page"
+  >
+    <header class="presentation-header">
+
+      <h2 class="presentation-title">
+        補課系統操作手冊
+      </h2>
+
+      <button
+        type="button"
+        class="back-button"
+        onclick="showHome()"
+      >
+        返回首頁
+      </button>
+
+    </header>
+
+    <div class="iframe-container">
+     <iframe data-src="https://docs.google.com/presentation/d/e/2PACX-1vQVa7ObF6aJMyVz9I7rrNAePSvIUTCKgsRVZjRA8ok7dBddSZnmJ4hVMAjoR7kl8ZwseA01ujhmHFqX/pubembed?start=false&loop=true&delayms=8000" frameborder="0" width="1920" height="1109" allowfullscreen="true" mozallowfullscreen="true" webkitallowfullscreen="true"></iframe>
+    </div>
+  </section>
+
+  <!-- =========================
+       第二份簡報
+  ========================== -->
+
+  <section
+    id="presentationPage2"
+    class="page presentation-page"
+  >
+    <header class="presentation-header">
+
+      <h2 class="presentation-title">
+        修改電子郵件
+      </h2>
+
+      <button
+        type="button"
+        class="back-button"
+        onclick="showHome()"
+      >
+        返回首頁
+      </button>
+
+    </header>
+
+    <div class="iframe-container">
+     <iframe data-src="https://docs.google.com/presentation/d/e/2PACX-1vQ_fImfGQefuazO1RopaajrPak12ZA4ICsrZwxw6d2-K8ochH2Qt5KGkIUpG2RlAhIGF0DMrnk4zRHb/pubembed?start=false&loop=true&delayms=8000" frameborder="0" width="960" height="569" allowfullscreen="true" mozallowfullscreen="true" webkitallowfullscreen="true"></iframe>
+    </div>
+  </section>
+
+  <!-- =========================
+       第三份簡報
+  ========================== -->
+
+  <section
+    id="presentationPage3"
+    class="page presentation-page"
+  >
+    <header class="presentation-header">
+
+      <h2 class="presentation-title">
+        學員請假操作手冊
+      </h2>
+
+      <button
+        type="button"
+        class="back-button"
+        onclick="showHome()"
+      >
+        返回首頁
+      </button>
+
+    </header>
+
+    <div class="iframe-container">
+      <iframe data-src="https://docs.google.com/presentation/d/e/2PACX-1vT8yfsJvcvF8UM544m6sR9xNQi_1K57xjdoOGE6Hyr1p0YUYvtRgNEWJoarpQA5SvoT2Ej-eqVan4SB/pubembed?start=true&loop=true&delayms=8000" frameborder="0" width="960" height="569" allowfullscreen="true" mozallowfullscreen="true" webkitallowfullscreen="true"></iframe>
+    </div>
+  </section>
+
+  <!-- =========================
+       JavaScript
+  ========================== -->
+
+  <script>
+    /**
+     * 隱藏全部頁面
+     */
+    function hideAllPages() {
+      const pages = document.querySelectorAll(".page");
+
+      pages.forEach(function (page) {
+        page.classList.remove("active");
+      });
+    }
+
+    /**
+     * 每次開啟簡報時重新載入，確保從第一張開始。
+     */
+    function resetPresentation(iframe) {
+      if (!iframe) return;
+
+      const originalSrc = iframe.dataset.src;
+      if (!originalSrc) return;
+
+      iframe.src = "about:blank";
+
+      const separator = originalSrc.includes("?") ? "&" : "?";
+      iframe.src = originalSrc + separator + "reload=" + Date.now();
+    }
+
+    /**
+     * 顯示指定簡報
+     */
+    function showPresentation(pageId) {
+      hideAllPages();
+
+      const selectedPage = document.getElementById(pageId);
+
+      if (selectedPage) {
+        const iframe = selectedPage.querySelector("iframe");
+
+        resetPresentation(iframe);
+        selectedPage.classList.add("active");
+        window.scrollTo(0, 0);
+      }
+    }
+
+    /**
+     * 返回首頁
+     */
+    function showHome() {
+      const activeIframe =
+        document.querySelector(".presentation-page.active iframe");
+
+      if (activeIframe) {
+        activeIframe.src = "about:blank";
+      }
+
+      hideAllPages();
+
+      const homePage = document.getElementById("homePage");
+
+      if (homePage) {
+        homePage.classList.add("active");
+        window.scrollTo(0, 0);
+      }
+    }
+  </script>
+
+</body>
+</html>
