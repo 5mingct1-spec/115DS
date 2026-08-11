@@ -129,7 +129,7 @@
       position: relative;
       z-index: 1;
 
-      width: min(960px, 94%);
+      width: min(1120px, 94%);
       padding: 72px 55px;
 
       text-align: center;
@@ -372,6 +372,16 @@
         );
     }
 
+    /* 第四個按鈕：青綠色 */
+    .button-four {
+      background:
+        linear-gradient(
+          135deg,
+          #28766f 0%,
+          #43a39a 100%
+        );
+    }
+
     .button-icon {
       display: inline-flex;
       justify-content: center;
@@ -500,7 +510,7 @@
     }
 
     /* =========================
-       PC 桌機版：三個按鈕同一排
+       PC 桌機版：四個按鈕同一排
     ========================= */
 
     @media (min-width: 901px) {
@@ -510,7 +520,7 @@
       }
 
       .menu-button {
-        width: calc((100% - 36px) / 3);
+        width: calc((100% - 54px) / 4);
         min-width: 0;
         min-height: 74px;
         padding: 14px 16px;
@@ -683,6 +693,19 @@
           </span>
         </button>
 
+        <!-- 第四個按鈕 -->
+        <button
+          type="button"
+          class="menu-button button-four"
+          onclick="showPresentation('presentationPage4')"
+        >
+          <span class="button-icon">ⓘ</span>
+
+          <span>
+            訊息公告
+          </span>
+        </button>
+
       </div>
     </section>
   </main>
@@ -771,6 +794,35 @@
 
     <div class="iframe-container">
       <iframe data-src="https://docs.google.com/presentation/d/e/2PACX-1vT8yfsJvcvF8UM544m6sR9xNQi_1K57xjdoOGE6Hyr1p0YUYvtRgNEWJoarpQA5SvoT2Ej-eqVan4SB/pubembed?start=true&loop=true&delayms=8000" frameborder="0" width="960" height="569" allowfullscreen="true" mozallowfullscreen="true" webkitallowfullscreen="true"></iframe>
+    </div>
+  </section>
+
+  <!-- =========================
+       第四份簡報
+  ========================== -->
+
+  <section
+    id="presentationPage4"
+    class="page presentation-page"
+  >
+    <header class="presentation-header">
+
+      <h2 class="presentation-title">
+        訊息公告
+      </h2>
+
+      <button
+        type="button"
+        class="back-button"
+        onclick="showHome()"
+      >
+        返回首頁
+      </button>
+
+    </header>
+
+    <div class="iframe-container">
+      <iframe data-src="https://docs.google.com/presentation/d/e/2PACX-1vT7bD10gLDli3touv9kXsQDZJcoibvbtEvKZf6A1N6sJ1cKyu__Cro7a0FAsxTBAQUuxq_TrzOQ2F4N/pubembed?start=true&loop=true&delayms=3000" frameborder="0" width="1440" height="839" allowfullscreen="true" mozallowfullscreen="true" webkitallowfullscreen="true"></iframe>
     </div>
   </section>
 
